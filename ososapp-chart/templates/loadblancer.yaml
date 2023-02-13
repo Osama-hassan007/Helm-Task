@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ososapp-chart.fullname" . }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    name: {{- include "ososapp-chart.selectorLabels" . | nindent 4 }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 8000
+      nodePort: 30088

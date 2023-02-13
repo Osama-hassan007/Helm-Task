@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ososapp-chart.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      name: {{- include "ososapp-chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        name: {{- include "ososapp-chart.labels" . | nindent 4 }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        ports:
+        - containerPort: 80
+        envFrom:
+        - configMapRef:
+            name: app-cm 

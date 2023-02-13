@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ososredis-chart.fullname" . }}
+spec:
+  selector:
+    name: {{- include "ososredis-chart.labels" . | nindent 4 }}
+  ports:
+    - protocol: TCP
+      port: 6379
+      targetPort: 6379

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "ososredis-chart.fullname" . }}
+  labels:
+    name: {{- include "ososredis-chart.labels" . | nindent 4 }}
+spec:
+  containers:
+  - name: {{ .Chart.Name }}
+    image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+    ports:
+    - containerPort: 80
